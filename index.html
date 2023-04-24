@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./pages/pages.css">
+    <title>Mesto</title>
+</head>
+<body class="page">
+    <header class="header">
+    <img src="./images/logo.svg" alt="место" class="header__logo" />
+    </header>
+    <main class="main">
+        <section class="profile">
+            <div class="profile__card">
+            <img src="./images/gidora.gif" alt="аватар профиля" class="profile__avatar"/>
+                <div class="profile__info">
+                    <div class="profile__user">
+                        <h1 class="profile__title">Gidora</h1>
+                        <button type="button" class="profile__button profile__button_type_edit">
+                            <img src="./images/edit_button.svg" class=" image image_type_edit" alt="эдит кнопка" />
+                        </button>
+                    </div>
+                    <p class="profile__text">Лайф энжоер</p>
+                </div>
+            </div>
+            <button type="button" class="profile__button profile__button_type_add">
+                <img src="./images/add.svg" class="image image_type_add" alt="Добавить">
+            </button>
+        </section>
+        <section class="cards">
+            <div class="cards__item">
+                <img class="cards__img" src="./images/hisoka.png" alt="картинка"/>
+                <div class="cards__info">
+                    <h2 class="cards__title">Hisoka Morow</h2>
+                    <button type="button" class="cards__like"></button>
+                </div>
+            </div>
+            <div class="cards__item">
+                <img class="cards__img" src="./images/Giyu.jpg" alt="картинка"/>
+                <div class="cards__info">
+                    <h2 class="cards__title">Giyu Tomioka</h2>
+                    <button type="button" class="cards__like"></button>
+                </div>
+            </div>
+            <div class="cards__item">
+                <img class="cards__img" src="./images/art.jpg" alt="картинка"/>
+                <div class="cards__info">
+                    <h2 class="cards__title">Some kind of art</h2>
+                    <button type="button" class="cards__like"></button>
+                </div>
+            </div>
+            <div class="cards__item">
+                <img class="cards__img" src="./images/002.jpg" alt="картинка"/>
+                <div class="cards__info">
+                    <h2 class="cards__title">Zero Two</h2>
+                    <button type="button" class="cards__like"></button>
+                </div>
+            </div>
+            <div class="cards__item">
+                <img class="cards__img" src="./images/Kit.jpg" alt="картинка"/>
+                <div class="cards__info">
+                    <h2 class="cards__title">Ma kit</h2>
+                    <button type="button" class="cards__like"></button>
+                </div>
+            </div>
+            <div class="cards__item">
+                <img class="cards__img" src="./images/purple.jpg" alt="картинка"/>
+                <div class="cards__info">
+                    <h2 class="cards__title">Purple life</h2>
+                    <button type="button" class="cards__like"></button>
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer class="footer">
+        <p class="footer__title">© 2023 GoldenGidora</p>
+    </footer>
+    <div class="popup">
+        <div class="popup__container">
+            <div class="popup__content">
+                <h2 class="popup__title">Редактировать профиль</h2>
+                <form id='popup_form_submit' action="" method="get" novalidate >
+                <input type="text" placeholder="Введите имя" name="name" class="popup__input popup__input_type_name"/>
+                <input type="text" placeholder="Введите описание" name="description" class="popup__input popup__input_type_description"/>
+                <button type="submit" class="popup__submit">Сохранить</button>
+                </form>
+                <button type="button" class="popup__close"></button>
+            </div>
+        </div>
+    </div>
+    <script src="./scripts/index.js"></script>
+</body>
+</html>
