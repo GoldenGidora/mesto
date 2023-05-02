@@ -13,7 +13,7 @@
     font-weight: 500;
     font-display: swap;
     src: url("./fonts/Inter-Medium.woff2?v=3.19") format("woff2"),
-        url("./fonts/Inter-Medium.woff.woff?v=3.19") format("woff");
+        url("./fonts/Inter-Medium.woff?v=3.19") format("woff");
 }
 
 @font-face {
