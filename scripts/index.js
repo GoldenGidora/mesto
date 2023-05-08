@@ -8,19 +8,20 @@ let userDescriptionInput = document.querySelector('.popup__input_type_descriptio
 let buttonAdd = document.querySelector('.profile__button_type_add');
 let formSubmit = document.querySelector('#popup_form_submit');
 
+function closePopup() {
+    popup.classList.remove('popup_opened');
+}
 buttonEdit.addEventListener('click', () => {
     popup.classList.add('popup_opened');
     userNameInput.value = userName.textContent;
     userDescriptionInput.value = userDescription.textContent;
 })
 
-buttonClose.addEventListener('click', () => {
-    popup.classList.remove('popup_opened');
-})
+buttonClose.addEventListener('click', closePopup)
 
 formSubmit.addEventListener('submit', (event) => {
     event.preventDefault();
     userName.textContent = `${userNameInput.value}`;
     userDescription.textContent = `${userDescriptionInput.value}`;
-    popup.classList.remove('popup_opened');
+    closePopup();
 })
