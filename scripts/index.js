@@ -11,6 +11,7 @@ let formSubmit = document.querySelector('#popup_form_submit');
 function closePopup() {
     popup.classList.remove('popup_opened');
 }
+
 buttonEdit.addEventListener('click', () => {
     popup.classList.add('popup_opened');
     userNameInput.value = userName.textContent;
