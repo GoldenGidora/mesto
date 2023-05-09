@@ -1,5 +1,4 @@
 .profile__user {
-    align-items: center;
     display: flex;
     gap: 18px;
 }
@@ -7,7 +6,8 @@
 
 @media screen and (max-width: 720px) {
     .profile__user {
+        display: flex;
         justify-content: center;
-        gap: 10px;
+        padding-left: 28px;
     }
 }
