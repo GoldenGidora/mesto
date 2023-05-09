@@ -6,7 +6,7 @@ let userDescription = document.querySelector('.profile__text');
 let userNameInput = document.querySelector('.popup__input_type_name');
 let userDescriptionInput = document.querySelector('.popup__input_type_description');
 let buttonAdd = document.querySelector('.profile__button_type_add');
-let formSubmit = document.querySelector('#popup_form_submit');
+let formSubmit = document.querySelector('[name="popup_form_submit"]');
 
 function closePopup() {
     popup.classList.remove('popup_opened');
