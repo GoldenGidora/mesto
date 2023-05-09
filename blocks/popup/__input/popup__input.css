@@ -19,7 +19,7 @@
 }
 
 
-.popup__input:nth-child(2) {
+.popup__input:last-of-type {
     margin-bottom: 48px;
 }
 
@@ -30,7 +30,7 @@
         margin-left: 22px;
         margin-right: 22px;
     }
-    .popup__input:nth-child(2) {
+    .popup__input:last-of-type {
         margin-bottom: 45px;
     }
 }
