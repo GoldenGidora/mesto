@@ -4,12 +4,12 @@
     column-gap: 17px;
     row-gap: 20px;
     color: #ffff;
-    margin: 51px auto 0px;
+    margin: 51px auto 0;
 }
 
 
 @media screen and (max-width: 1000px) {
     .cards {
-        margin: 46px 19px 0px;
+        margin: 36px 19px 0;
     }
 }
