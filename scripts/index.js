@@ -7,8 +7,9 @@ let userNameInput = document.querySelector('.popup__input_type_name');
 let userDescriptionInput = document.querySelector('.popup__input_type_description');
 let buttonAdd = document.querySelector('.profile__button_type_add');
 let formSubmit = document.querySelector('#popup_form_submit');
-let template = document.querySelector('#template_card');
-const initialCards  = [
+let template = document.querySelector('#template_card').content;
+let cardsSection = document.querySelector('.cards');
+const initialCards = [
     {
         name: 'Mountain',
         link: 'https://images.unsplash.com/photo-1683520596266-b7811d63e5af?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80',
@@ -34,13 +35,19 @@ const initialCards  = [
         link: 'https://images.unsplash.com/photo-1683459597762-0d8cf92b6c1d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
     },
 ]
+
 function closePopup() {
     popup.classList.remove('popup_opened');
 }
 
-function cardRender(cardList) {
-
+function cardRender(cardItem) {
+    let cardElement = template.querySelector('.cards__item').cloneNode(true);
+    cardElement.querySelector('.cards__img').src = cardItem.link;
+    cardElement.querySelector('.cards__info').querySelector('.cards__title').textContent = cardItem.name;
+    cardsSection.append(cardElement);
 }
+
+initialCards.map(cardRender)
 
 buttonEdit.addEventListener('click', () => {
     popup.classList.add('popup_opened');
