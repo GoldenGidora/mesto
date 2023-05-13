@@ -56,7 +56,7 @@ function openPopup(popup) {
     popup.classList.add('popup_opened');
 }
 
-function cardRender(cardItem) {
+function renderCard(cardItem) {
     let cardElement = template.querySelector('.cards__item').cloneNode(true);
     cardElement.querySelector('.cards__img').src = cardItem.link;
     cardElement.querySelector('.cards__title').textContent = cardItem.name;
@@ -75,7 +75,7 @@ function cardRender(cardItem) {
     cardsSection.prepend(cardElement);
 }
 
-initialCards.map(cardRender)
+initialCards.map(renderCard)
 
 buttonProfileEdit.addEventListener('click', () => {
     openPopup(popupEditProfile)
@@ -97,7 +97,7 @@ editFormSubmit.addEventListener('submit', (event) => {
 
 placeAddFormSubmit.addEventListener('submit', (event) => {
     event.preventDefault();
-    cardRender({name: placeNameInput.value, link: placeLinkInput.value});
+    renderCard({name: placeNameInput.value, link: placeLinkInput.value});
     closePopup(popupAddPlace);
     placeAddFormSubmit.reset();
 })
