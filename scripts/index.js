@@ -81,7 +81,7 @@ editFormSubmit.addEventListener('submit', (event) => {
     event.preventDefault();
     userName.textContent = `${userNameInput.value}`;
     userDescription.textContent = `${userDescriptionInput.value}`;
-    closePopup(buttonCloseEditPopup);
+    closePopup(popupEditProfile);
 })
 
 placeAddFormSubmit.addEventListener('submit', (event) => {
