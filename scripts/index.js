@@ -59,7 +59,7 @@ function cardRender(cardItem) {
     like.addEventListener('click', () => {
         like.classList.toggle('cards__like_active');
     })
-    cardsSection.append(cardElement);
+    cardsSection.prepend(cardElement);
 }
 
 initialCards.map(cardRender)
@@ -70,10 +70,7 @@ buttonProfileEdit.addEventListener('click', () => {
     userDescriptionInput.value = userDescription.textContent;
 })
 
-buttonPlaceAdd.addEventListener('click', () => {
-    openPopup(popupAddPlace);
-
-})
+buttonPlaceAdd.addEventListener('click', () => openPopup(popupAddPlace));
 
 buttonCloseEditPopup.addEventListener('click', () => closePopup(popupEditProfile));
 buttonCloseAddPopup.addEventListener('click', () => closePopup(popupAddPlace));
@@ -83,4 +80,11 @@ editFormSubmit.addEventListener('submit', (event) => {
     userName.textContent = `${userNameInput.value}`;
     userDescription.textContent = `${userDescriptionInput.value}`;
     closePopup(buttonCloseEditPopup);
+})
+
+placeAddFormSubmit.addEventListener('submit', (event) => {
+    event.preventDefault();
+    cardRender({name: placeNameInput.value, link: placeLinkInput.value});
+    closePopup(popupAddPlace);
+    placeAddFormSubmit.reset();
 })
