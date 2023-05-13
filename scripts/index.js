@@ -1,14 +1,15 @@
-
 let userName = document.querySelector('.profile__title'),
     userDescription = document.querySelector('.profile__text'),
     buttonProfileEdit = document.querySelector('.profile__button_type_edit'),
-    popupEdit = document.querySelector('.popup_type_edit_profile'),
+    popupEditProfile = document.querySelector('.popup_type_edit_profile'),
     buttonCloseEditPopup = document.querySelector('#CloseEdit'),
     userNameInput = document.querySelector('.popup__input_type_name'),
     userDescriptionInput = document.querySelector('.popup__input_type_description'),
     editFormSubmit = document.querySelector('#popup_edit_submit');
 
 let buttonPlaceAdd = document.querySelector('.profile__button_type_add'),
+    buttonCloseAddPopup = document.querySelector('#CloseAdd'),
+    popupAddPlace = document.querySelector('.popup_type_add_post'),
     placeNameInput = document.querySelector('.popup__input_type_place'),
     placeLinkInput = document.querySelector('.popup__input_type_link'),
     placeAddFormSubmit = document.querySelector('#popup_add_submit');
@@ -64,12 +65,18 @@ function cardRender(cardItem) {
 initialCards.map(cardRender)
 
 buttonProfileEdit.addEventListener('click', () => {
-    openPopup(popupEdit)
+    openPopup(popupEditProfile)
     userNameInput.value = userName.textContent;
     userDescriptionInput.value = userDescription.textContent;
 })
 
-buttonCloseEditPopup.addEventListener('click', () => closePopup(popupEdit));
+buttonPlaceAdd.addEventListener('click', () => {
+    openPopup(popupAddPlace);
+
+})
+
+buttonCloseEditPopup.addEventListener('click', () => closePopup(popupEditProfile));
+buttonCloseAddPopup.addEventListener('click', () => closePopup(popupAddPlace));
 
 editFormSubmit.addEventListener('submit', (event) => {
     event.preventDefault();
