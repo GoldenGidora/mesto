@@ -1,12 +1,18 @@
-let buttonEdit = document.querySelector('.profile__button_type_edit');
-let popup = document.querySelector('.popup');
-let buttonClose = document.querySelector('.popup__close');
-let userName = document.querySelector('.profile__title');
-let userDescription = document.querySelector('.profile__text');
-let userNameInput = document.querySelector('.popup__input_type_name');
-let userDescriptionInput = document.querySelector('.popup__input_type_description');
-let buttonAdd = document.querySelector('.profile__button_type_add');
-let formSubmit = document.querySelector('#popup_form_submit');
+
+let userName = document.querySelector('.profile__title'),
+    userDescription = document.querySelector('.profile__text'),
+    buttonProfileEdit = document.querySelector('.profile__button_type_edit'),
+    popupEdit = document.querySelector('.popup_type_edit_profile'),
+    buttonCloseEditPopup = document.querySelector('#CloseEdit'),
+    userNameInput = document.querySelector('.popup__input_type_name'),
+    userDescriptionInput = document.querySelector('.popup__input_type_description'),
+    editFormSubmit = document.querySelector('#popup_edit_submit');
+
+let buttonPlaceAdd = document.querySelector('.profile__button_type_add'),
+    placeNameInput = document.querySelector('.popup__input_type_place'),
+    placeLinkInput = document.querySelector('.popup__input_type_link'),
+    placeAddFormSubmit = document.querySelector('#popup_add_submit');
+
 let template = document.querySelector('#template_card').content;
 let cardsSection = document.querySelector('.cards');
 const initialCards = [
@@ -36,8 +42,12 @@ const initialCards = [
     },
 ]
 
-function closePopup() {
+function closePopup(popup) {
     popup.classList.remove('popup_opened');
+}
+
+function openPopup(popup) {
+    popup.classList.add('popup_opened');
 }
 
 function cardRender(cardItem) {
@@ -53,17 +63,17 @@ function cardRender(cardItem) {
 
 initialCards.map(cardRender)
 
-buttonEdit.addEventListener('click', () => {
-    popup.classList.add('popup_opened');
+buttonProfileEdit.addEventListener('click', () => {
+    openPopup(popupEdit)
     userNameInput.value = userName.textContent;
     userDescriptionInput.value = userDescription.textContent;
 })
 
-buttonClose.addEventListener('click', closePopup)
+buttonCloseEditPopup.addEventListener('click', () => closePopup(popupEdit));
 
-formSubmit.addEventListener('submit', (event) => {
+editFormSubmit.addEventListener('submit', (event) => {
     event.preventDefault();
     userName.textContent = `${userNameInput.value}`;
     userDescription.textContent = `${userDescriptionInput.value}`;
-    closePopup();
+    closePopup(buttonCloseEditPopup);
 })
