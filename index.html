@@ -44,12 +44,22 @@
     <footer class="footer">
         <p class="footer__title">© 2023 GoldenGidora</p>
     </footer>
-    <div class="popup">
+    <div class="popup popup_type_edit_profile">
         <div class="popup__container">
             <h2 class="popup__title">Редактировать профиль</h2>
-            <form id="popup_form_submit" name="profile edit" action="/" method="get" novalidate >
+            <form id="popup_edit_submit" name="profile edit" action="/" method="get" novalidate >
                 <input type="text" placeholder="Введите имя" name="name" class="popup__input popup__input_type_name"/>
                 <input type="text" placeholder="Введите описание" name="description" class="popup__input popup__input_type_description"/>
+                <button type="submit" class="popup__submit">Сохранить</button>
+            </form>
+            <button type="button" id="CloseEdit" class="popup__close"></button>
+        </div>
+    </div><div class="popup popup_type_add_post">
+        <div class="popup__container">
+            <h2 class="popup__title">Новое место</h2>
+            <form id="popup_add_submit" name="post add" action="/" method="get" novalidate >
+                <input type="text" placeholder="Введите имя" name="name" class="popup__input popup__input_type_place"/>
+                <input type="text" placeholder="Введите описание" name="description" class="popup__input popup__input_type_link"/>
                 <button type="submit" class="popup__submit">Сохранить</button>
             </form>
             <button type="button" class="popup__close"></button>
