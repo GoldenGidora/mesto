@@ -59,6 +59,8 @@ function cardRender(cardItem) {
     like.addEventListener('click', () => {
         like.classList.toggle('cards__like_active');
     })
+    cardElement.querySelector('.cards__delete')
+        .addEventListener('click', () => cardElement.remove());
     cardsSection.prepend(cardElement);
 }
 
