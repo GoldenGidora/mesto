@@ -14,6 +14,11 @@ let buttonPlaceAdd = document.querySelector('.profile__button_type_add'),
     placeLinkInput = document.querySelector('.popup__input_type_link'),
     placeAddFormSubmit = document.querySelector('#popup_add_submit');
 
+let buttonCloseImage = document.querySelector('#CloseImage'),
+    PopupTypeImage = document.querySelector('.popup_type_image'),
+    imagePopup = document.querySelector('.popup__image'),
+    figcaption = document.querySelector('.popup__figcaption');
+
 let template = document.querySelector('#template_card').content;
 let cardsSection = document.querySelector('.cards');
 const initialCards = [
@@ -61,6 +66,12 @@ function cardRender(cardItem) {
     })
     cardElement.querySelector('.cards__delete')
         .addEventListener('click', () => cardElement.remove());
+    cardElement.querySelector('.cards__img')
+        .addEventListener('click', () => {
+            imagePopup.src = cardItem.link;
+            figcaption.textContent = cardItem.name;
+            openPopup(PopupTypeImage);
+        })
     cardsSection.prepend(cardElement);
 }
 
@@ -73,9 +84,9 @@ buttonProfileEdit.addEventListener('click', () => {
 })
 
 buttonPlaceAdd.addEventListener('click', () => openPopup(popupAddPlace));
-
 buttonCloseEditPopup.addEventListener('click', () => closePopup(popupEditProfile));
 buttonCloseAddPopup.addEventListener('click', () => closePopup(popupAddPlace));
+buttonCloseImage.addEventListener('click', () => closePopup(PopupTypeImage))
 
 editFormSubmit.addEventListener('submit', (event) => {
     event.preventDefault();
