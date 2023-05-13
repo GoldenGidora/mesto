@@ -43,7 +43,7 @@ function closePopup() {
 function cardRender(cardItem) {
     let cardElement = template.querySelector('.cards__item').cloneNode(true);
     cardElement.querySelector('.cards__img').src = cardItem.link;
-    cardElement.querySelector('.cards__info').querySelector('.cards__title').textContent = cardItem.name;
+    cardElement.querySelector('.cards__title').textContent = cardItem.name;
     const like = cardElement.querySelector('.cards__like');
     like.addEventListener('click', () => {
         like.classList.toggle('cards__like_active');
