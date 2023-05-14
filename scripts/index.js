@@ -31,7 +31,7 @@ function openPopup(popup) {
 }
 
 function renderCard(cardItem) {
-    let cardElement = template.querySelector('.cards__item').cloneNode(true);
+    const cardElement = template.querySelector('.cards__item').cloneNode(true);
     cardElement.querySelector('.cards__img').src = cardItem.link;
     cardElement.querySelector('.cards__img').alt = cardItem.name;
     cardElement.querySelector('.cards__title').textContent = cardItem.name;
@@ -60,9 +60,10 @@ buttonProfileEdit.addEventListener('click', () => {
 })
 
 buttonPlaceAdd.addEventListener('click', () => openPopup(popupAddPlace));
-buttonCloseEditPopup.addEventListener('click', () => closePopup(popupEditProfile));
-buttonCloseAddPopup.addEventListener('click', () => closePopup(popupAddPlace));
-buttonCloseImage.addEventListener('click', () => closePopup(popupTypeImage))
+document.querySelectorAll('.popup__close').forEach(button => {
+    const parentPopup = button.closest('.popup');
+    button.addEventListener('click', () => closePopup(parentPopup));
+})
 
 formEditSubmit.addEventListener('submit', (event) => {
     event.preventDefault();
