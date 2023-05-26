@@ -21,6 +21,12 @@
     background-color: rgba(0, 0, 0, 80%);
 }
 
+.popup__submit_disabled {
+    background-color: white;
+    border: 1px solid grey;
+    color: grey;
+    cursor: default;
+}
 
 @media screen and (max-width: 720px) {
     .popup__submit {
