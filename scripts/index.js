@@ -63,14 +63,12 @@ function openPopup(popup) {
 }
 
 const handlePopupOverlayClick = (event) => {
-    console.log(event);
     if (event.target === event.currentTarget) {
         closePopup(event.currentTarget);
     }
 }
 
 const handlePopupPressEsc = (event) => {
-    console.log(event);
     const key = event.key;
     if (key === 'Escape') {
         closePopup(document.querySelector('.popup_opened'));
