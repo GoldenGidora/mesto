@@ -22,13 +22,9 @@ const buttonCloseImage = document.querySelector('#CloseImage'),
 const template = document.querySelector('#template_card').content;
 const cardsSection = document.querySelector('.cards');
 
-function closePopup(popup) {
-    popup.classList.remove('popup_opened');
-}
-
-function openPopup(popup) {
-    popup.classList.add('popup_opened');
-}
+//TODO: это костыль для валидации, надо исправить когда-нибудь
+userNameInput.value = userName.textContent;
+userDescriptionInput.value = userDescription.textContent;
 
 function renderCard(cardItem) {
     const cardElement = template.querySelector('.cards__item').cloneNode(true);
@@ -53,10 +49,34 @@ function renderCard(cardItem) {
 
 initialCards.forEach(renderCard)
 
+
+function closePopup(popup) {
+    popup.classList.remove('popup_opened');
+}
+
+function openPopup(popup) {
+    popup.classList.add('popup_opened');
+    popup.addEventListener('click', handlePopupOverlayClick);
+    document.addEventListener('keydown', handlePopupPressEsc);
+}
+
+const handlePopupOverlayClick = (event) => {
+    if (event.target == event.currentTarget) {
+        closePopup(event.currentTarget);
+        document.removeEventListener('click', handlePopupOverlayClick);
+    }
+}
+
+const handlePopupPressEsc = (event) => {
+    const key = event.key;
+    if (key === 'Escape') {
+        closePopup(document.querySelector('.popup_opened'));
+        document.removeEventListener('keydown', handlePopupPressEsc);
+    }
+}
+
 buttonProfileEdit.addEventListener('click', () => {
-    openPopup(popupEditProfile)
-    userNameInput.value = userName.textContent;
-    userDescriptionInput.value = userDescription.textContent;
+    openPopup(popupEditProfile);
 })
 
 buttonPlaceAdd.addEventListener('click', () => openPopup(popupAddPlace));
