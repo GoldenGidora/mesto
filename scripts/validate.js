@@ -42,9 +42,7 @@ const toggleSubmitButton = (button, isActive, config) => {
 const setEventValidityListeners = (form, config) => {
     const inputList = Array.from(form.querySelectorAll(config.input));
     const submitButton = form.querySelector('.popup__submit');
-
     toggleSubmitButton(submitButton, form.checkValidity(), config);
-    console.log(form.checkValidity());
 
     inputList.forEach((input) => {
         input.addEventListener('input', () => {
