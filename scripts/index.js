@@ -52,6 +52,8 @@ initialCards.forEach(renderCard)
 
 function closePopup(popup) {
     popup.classList.remove('popup_opened');
+    document.removeEventListener('keydown', handlePopupPressEsc);
+    document.removeEventListener('click', handlePopupOverlayClick);
 }
 
 function openPopup(popup) {
@@ -61,17 +63,17 @@ function openPopup(popup) {
 }
 
 const handlePopupOverlayClick = (event) => {
-    if (event.target == event.currentTarget) {
+    console.log(event);
+    if (event.target === event.currentTarget) {
         closePopup(event.currentTarget);
-        document.removeEventListener('click', handlePopupOverlayClick);
     }
 }
 
 const handlePopupPressEsc = (event) => {
+    console.log(event);
     const key = event.key;
     if (key === 'Escape') {
         closePopup(document.querySelector('.popup_opened'));
-        document.removeEventListener('keydown', handlePopupPressEsc);
     }
 }
 
