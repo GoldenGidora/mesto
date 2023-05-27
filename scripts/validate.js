@@ -23,7 +23,6 @@ const enableButton = (button, config) => {
 }
 
 const checkInputValidity = (form, input, config) => {
-    console.log(input);
     if (!input.validity.valid) {
         showInputError(form, input, input.validationMessage, config)
     } else {

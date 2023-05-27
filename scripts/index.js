@@ -22,11 +22,7 @@ const buttonCloseImage = document.querySelector('#CloseImage'),
 const template = document.querySelector('#template_card').content;
 const cardsSection = document.querySelector('.cards');
 
-//TODO: это костыль для валидации, надо исправить когда-нибудь
-userNameInput.value = userName.textContent;
-userDescriptionInput.value = userDescription.textContent;
-
-function renderCard(cardItem) {
+function createCard(cardItem) {
     const cardElement = template.querySelector('.cards__item').cloneNode(true);
     cardElement.querySelector('.cards__img').src = cardItem.link;
     cardElement.querySelector('.cards__img').alt = cardItem.name;
@@ -44,16 +40,16 @@ function renderCard(cardItem) {
             figcaption.textContent = cardItem.name;
             openPopup(popupTypeImage);
         })
-    cardsSection.prepend(cardElement);
+    return cardElement;
 }
 
-initialCards.forEach(renderCard)
+initialCards.forEach(element => cardsSection.prepend(createCard(element)))
 
 
 function closePopup(popup) {
     popup.classList.remove('popup_opened');
     document.removeEventListener('keydown', handlePopupPressEsc);
-    document.removeEventListener('click', handlePopupOverlayClick);
+    popup.removeEventListener('click', handlePopupOverlayClick);
 }
 
 function openPopup(popup) {
@@ -77,9 +73,15 @@ const handlePopupPressEsc = (event) => {
 
 buttonProfileEdit.addEventListener('click', () => {
     openPopup(popupEditProfile);
+    userNameInput.value = userName.textContent;
+    userDescriptionInput.value = userDescription.textContent;
 })
 
-buttonPlaceAdd.addEventListener('click', () => openPopup(popupAddPlace));
+buttonPlaceAdd.addEventListener('click', () => {
+    openPopup(popupAddPlace);
+    popupAddPlace.querySelector('.popup__submit').disabled = 'disabled';
+    popupAddPlace.querySelector('.popup__submit').classList.add(validationSelectorsConfig.submitDisabled);
+});
 document.querySelectorAll('.popup__close').forEach(button => {
     const parentPopup = button.closest('.popup');
     button.addEventListener('click', () => closePopup(parentPopup));
@@ -94,7 +96,7 @@ formEditSubmit.addEventListener('submit', (event) => {
 
 placeAddFormSubmit.addEventListener('submit', (event) => {
     event.preventDefault();
-    renderCard({name: placeNameInput.value, link: placeLinkInput.value});
+    cardsSection.prepend(createCard({name: placeNameInput.value, link: placeLinkInput.value}))
     closePopup(popupAddPlace);
     placeAddFormSubmit.reset();
 })
