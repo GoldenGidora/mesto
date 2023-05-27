@@ -22,6 +22,9 @@ const buttonCloseImage = document.querySelector('#CloseImage'),
 const template = document.querySelector('#template_card').content;
 const cardsSection = document.querySelector('.cards');
 
+userNameInput.value = userName.textContent;
+userDescriptionInput.value = userDescription.textContent;
+
 function createCard(cardItem) {
     const cardElement = template.querySelector('.cards__item').cloneNode(true);
     cardElement.querySelector('.cards__img').src = cardItem.link;
