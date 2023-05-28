@@ -14,40 +14,21 @@ const buttonPlaceAdd = document.querySelector('.profile__button_type_add'),
     placeLinkInput = document.querySelector('.popup__input_type_link'),
     placeAddFormSubmit = document.querySelector('#popup_add_submit');
 
-const buttonCloseImage = document.querySelector('#CloseImage'),
-    popupTypeImage = document.querySelector('.popup_type_image'),
-    imagePopup = document.querySelector('.popup__image'),
-    figcaption = document.querySelector('.popup__figcaption');
-
 const template = document.querySelector('#template_card').content;
 const cardsSection = document.querySelector('.cards');
+
+import Card from "./Card.js";
+import {initialCards} from "./enums.js"
 
 userNameInput.value = userName.textContent;
 userDescriptionInput.value = userDescription.textContent;
 
-function createCard(cardItem) {
-    const cardElement = template.querySelector('.cards__item').cloneNode(true);
-    cardElement.querySelector('.cards__img').src = cardItem.link;
-    cardElement.querySelector('.cards__img').alt = cardItem.name;
-    cardElement.querySelector('.cards__title').textContent = cardItem.name;
-    const like = cardElement.querySelector('.cards__like');
-    like.addEventListener('click', () => {
-        like.classList.toggle('cards__like_active');
-    })
-    cardElement.querySelector('.cards__delete')
-        .addEventListener('click', () => cardElement.remove());
-    cardElement.querySelector('.cards__img')
-        .addEventListener('click', () => {
-            imagePopup.src = cardItem.link;
-            imagePopup.alt = cardItem.name;
-            figcaption.textContent = cardItem.name;
-            openPopup(popupTypeImage);
-        })
-    return cardElement;
-}
 
-initialCards.forEach(element => cardsSection.prepend(createCard(element)))
-
+initialCards.forEach(element => {
+    const card = new Card({data: element, templateSelector: '#template_card', openPopup});
+    const cardElement = card.generateCard();
+    cardsSection.prepend(cardElement)
+})
 
 function closePopup(popup) {
     popup.classList.remove('popup_opened');
@@ -99,7 +80,10 @@ formEditSubmit.addEventListener('submit', (event) => {
 
 placeAddFormSubmit.addEventListener('submit', (event) => {
     event.preventDefault();
-    cardsSection.prepend(createCard({name: placeNameInput.value, link: placeLinkInput.value}))
+    cardsSection.prepend(new Card({
+        name: placeNameInput.value,
+        link: placeLinkInput.value
+    }, '#template_card').generateCard())
     closePopup(popupAddPlace);
     placeAddFormSubmit.reset();
 })
