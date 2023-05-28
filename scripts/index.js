@@ -6,13 +6,11 @@ const userName = document.querySelector('.profile__title'),
     userDescription = document.querySelector('.profile__text'),
     buttonProfileEdit = document.querySelector('.profile__button_type_edit'),
     popupEditProfile = document.querySelector('.popup_type_edit'),
-    buttonCloseEditPopup = document.querySelector('#CloseEdit'),
     userNameInput = document.querySelector('.popup__input_type_name'),
     userDescriptionInput = document.querySelector('.popup__input_type_description'),
     formEditSubmit = document.querySelector('#popup_edit_submit');
 
 const buttonPlaceAdd = document.querySelector('.profile__button_type_add'),
-    buttonCloseAddPopup = document.querySelector('#CloseAdd'),
     popupAddPlace = document.querySelector('.popup_type_add'),
     placeNameInput = document.querySelector('.popup__input_type_place'),
     placeLinkInput = document.querySelector('.popup__input_type_link'),
@@ -20,7 +18,6 @@ const buttonPlaceAdd = document.querySelector('.profile__button_type_add'),
 const popupImage = document.querySelector('.popup__image');
 const popupFigcaption = document.querySelector('.popup__figcaption');
 const popupTypeImage = document.querySelector('.popup_type_image');
-const template = document.querySelector('#template_card').content;
 const cardsSection = document.querySelector('.cards');
 
 const formValidators = {};
