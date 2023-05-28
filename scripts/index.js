@@ -17,7 +17,9 @@ const buttonPlaceAdd = document.querySelector('.profile__button_type_add'),
     placeNameInput = document.querySelector('.popup__input_type_place'),
     placeLinkInput = document.querySelector('.popup__input_type_link'),
     placeAddFormSubmit = document.querySelector('#popup_add_submit');
-
+const popupImage = document.querySelector('.popup__image');
+const popupFigcaption = document.querySelector('.popup__figcaption');
+const popupTypeImage = document.querySelector('.popup_type_image');
 const template = document.querySelector('#template_card').content;
 const cardsSection = document.querySelector('.cards');
 
@@ -32,11 +34,17 @@ const enableValidation = (config) => {
         validator.enableValidation();
     })
 }
-
 enableValidation(config);
 
+function handleCardClick(name, link) {
+    popupImage.src = link;
+    popupImage.alt = name;
+    popupFigcaption.textContent = name;
+    openPopup(popupTypeImage);
+}
+
 function createCard(item) {
-    return new Card({data: item, templateSelector: '#template_card', openPopup})
+    return new Card({data: item, templateSelector: '#template_card', handleCardClick})
         .generateCard();
 }
 
