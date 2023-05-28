@@ -20,13 +20,20 @@ const buttonPlaceAdd = document.querySelector('.profile__button_type_add'),
 
 const template = document.querySelector('#template_card').content;
 const cardsSection = document.querySelector('.cards');
-const formEdit = document.forms["profile edit"],
-    formPlaceAdd = document.forms["post add"];
 
-const formEditValidator = new FormValidator(config, formEdit);
-formEditValidator.enableValidation();
-const formPlaceAddValidator = new FormValidator(config, formPlaceAdd);
-formPlaceAddValidator.enableValidation();
+const formValidators = {};
+
+const enableValidation = (config) => {
+    const formList = Array.from(document.querySelectorAll(config.form));
+    formList.forEach((element) => {
+        const validator = new FormValidator(config, element);
+        const formName = element.getAttribute('name');
+        formValidators[formName] = validator;
+        validator.enableValidation();
+    })
+}
+
+enableValidation(config);
 
 function createCard(item) {
     return new Card({data: item, templateSelector: '#template_card', openPopup})
@@ -66,11 +73,12 @@ buttonProfileEdit.addEventListener('click', () => {
     openPopup(popupEditProfile);
     userNameInput.value = userName.textContent;
     userDescriptionInput.value = userDescription.textContent;
+    formValidators["profile edit"].toggleButtonState();
 })
 
 buttonPlaceAdd.addEventListener('click', () => {
     openPopup(popupAddPlace);
-    formPlaceAddValidator.toggleButtonState();
+    formValidators["post add"].toggleButtonState();
 });
 document.querySelectorAll('.popup__close').forEach(button => {
     const parentPopup = button.closest('.popup');
