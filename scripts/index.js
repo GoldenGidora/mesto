@@ -1,3 +1,7 @@
+import Card from "./Card.js";
+import {initialCards, config} from "./constants.js"
+import FormValidator from "./FormValidator.js";
+
 const userName = document.querySelector('.profile__title'),
     userDescription = document.querySelector('.profile__text'),
     buttonProfileEdit = document.querySelector('.profile__button_type_edit'),
@@ -16,25 +20,21 @@ const buttonPlaceAdd = document.querySelector('.profile__button_type_add'),
 
 const template = document.querySelector('#template_card').content;
 const cardsSection = document.querySelector('.cards');
-const formEdit = document.querySelector('#popup_edit_submit'),
-    formPlaceAdd = document.querySelector('#popup_add_submit');
-
-import Card from "./Card.js";
-import {initialCards, config} from "./constants.js"
-import FormValidator from "./FormValidator.js";
-
-userNameInput.value = userName.textContent;
-userDescriptionInput.value = userDescription.textContent;
+const formEdit = document.forms["profile edit"],
+    formPlaceAdd = document.forms["post add"];
 
 const formEditValidator = new FormValidator(config, formEdit);
 formEditValidator.enableValidation();
 const formPlaceAddValidator = new FormValidator(config, formPlaceAdd);
 formPlaceAddValidator.enableValidation();
 
+function createCard(item) {
+    return new Card({data: item, templateSelector: '#template_card', openPopup})
+        .generateCard();
+}
+
 initialCards.forEach(element => {
-    const card = new Card({data: element, templateSelector: '#template_card', openPopup});
-    const cardElement = card.generateCard();
-    cardsSection.prepend(cardElement)
+    cardsSection.prepend(createCard(element))
 })
 
 function closePopup(popup) {
@@ -70,7 +70,7 @@ buttonProfileEdit.addEventListener('click', () => {
 
 buttonPlaceAdd.addEventListener('click', () => {
     openPopup(popupAddPlace);
-    popupAddPlace.querySelector('.popup__submit').setAttribute('disabled', 'disable');
+    formPlaceAddValidator.toggleButtonState();
 });
 document.querySelectorAll('.popup__close').forEach(button => {
     const parentPopup = button.closest('.popup');
@@ -86,11 +86,7 @@ formEditSubmit.addEventListener('submit', (event) => {
 
 placeAddFormSubmit.addEventListener('submit', (event) => {
     event.preventDefault();
-    cardsSection.prepend(new Card({
-        data: {name: placeNameInput.value, link: placeLinkInput.value},
-        templateSelector: '#template_card',
-        openPopup
-    }).generateCard());
+    cardsSection.prepend(createCard({name: placeNameInput.value, link: placeLinkInput.value}));
     closePopup(popupAddPlace);
     placeAddFormSubmit.reset();
 })
