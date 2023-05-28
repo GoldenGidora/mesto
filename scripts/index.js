@@ -16,13 +16,20 @@ const buttonPlaceAdd = document.querySelector('.profile__button_type_add'),
 
 const template = document.querySelector('#template_card').content;
 const cardsSection = document.querySelector('.cards');
+const formEdit = document.querySelector('#popup_edit_submit'),
+    formPlaceAdd = document.querySelector('#popup_add_submit');
 
 import Card from "./Card.js";
-import {initialCards} from "./enums.js"
+import {initialCards, config} from "./constants.js"
+import FormValidator from "./FormValidator.js";
 
 userNameInput.value = userName.textContent;
 userDescriptionInput.value = userDescription.textContent;
 
+const formEditValidator = new FormValidator(config, formEdit);
+formEditValidator.enableValidation();
+const formPlaceAddValidator = new FormValidator(config, formPlaceAdd);
+formPlaceAddValidator.enableValidation();
 
 initialCards.forEach(element => {
     const card = new Card({data: element, templateSelector: '#template_card', openPopup});
@@ -63,8 +70,7 @@ buttonProfileEdit.addEventListener('click', () => {
 
 buttonPlaceAdd.addEventListener('click', () => {
     openPopup(popupAddPlace);
-    popupAddPlace.querySelector('.popup__submit').disabled = 'disabled';
-    popupAddPlace.querySelector('.popup__submit').classList.add(validationSelectorsConfig.submitDisabled);
+    popupAddPlace.querySelector('.popup__submit').setAttribute('disabled', 'disable');
 });
 document.querySelectorAll('.popup__close').forEach(button => {
     const parentPopup = button.closest('.popup');
@@ -81,9 +87,10 @@ formEditSubmit.addEventListener('submit', (event) => {
 placeAddFormSubmit.addEventListener('submit', (event) => {
     event.preventDefault();
     cardsSection.prepend(new Card({
-        name: placeNameInput.value,
-        link: placeLinkInput.value
-    }, '#template_card').generateCard())
+        data: {name: placeNameInput.value, link: placeLinkInput.value},
+        templateSelector: '#template_card',
+        openPopup
+    }).generateCard());
     closePopup(popupAddPlace);
     placeAddFormSubmit.reset();
 })
