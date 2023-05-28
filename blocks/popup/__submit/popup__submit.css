@@ -21,7 +21,7 @@
     background-color: rgba(0, 0, 0, 80%);
 }
 
-.popup__submit_disabled {
+.popup__submit:disabled {
     background-color: white;
     border: 1px solid grey;
     color: grey;

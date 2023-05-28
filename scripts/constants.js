@@ -1,4 +1,4 @@
-const initialCards = [
+export const initialCards = [
     {
         name: 'Mountain',
         link: 'https://images.unsplash.com/photo-1683520596266-b7811d63e5af?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80',
@@ -24,10 +24,10 @@ const initialCards = [
         link: 'https://images.unsplash.com/photo-1683459597762-0d8cf92b6c1d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
     },
 ]
-const validationSelectorsConfig = {
+export const config = {
     form: '.form',
-    input: '.popup__input',
+    formInput: '.popup__input',
     errorInput: 'popup__input_type_error',
     errorMessage: 'popup__input-error_active',
-    submitDisabled: 'popup__submit_disabled'
+    submitBtn: '.popup__submit'
 }
