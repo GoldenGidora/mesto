@@ -7,7 +7,7 @@
     height: 19px;
     width: 18px;
     padding: 0;
-    background-image: url('src/images/delete.svg');
+    background-image: url('../../../../src/images/delete.svg');
     position: absolute;
 }
 

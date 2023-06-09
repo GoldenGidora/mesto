@@ -1,6 +1,7 @@
 import Card from "../components/Card.js";
 import {initialCards, config} from "../utils/constants.js"
 import FormValidator from "../components/FormValidator.js";
+import './index.css';
 
 const userName = document.querySelector('.profile__title'),
     userDescription = document.querySelector('.profile__text'),

@@ -4,29 +4,29 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="src/scripts/pages/index.css">
+    <link rel="stylesheet" href="scripts/pages/index.css">
     <title>Mesto</title>
 </head>
 <body class="page">
     <header class="header">
-    <img src="src/images/logo.svg" alt="место" class="header__logo" />
+    <img src="<%=require('./images/logo.svg')%>" alt="место" class="header__logo" />
     </header>
     <main class="main">
         <section class="profile">
             <div class="profile__card">
-            <img src="src/images/gidora.gif" alt="аватар профиля" class="profile__avatar"/>
+            <img src="<%=require('./images/gidora.gif')%>" alt="аватар профиля" class="profile__avatar"/>
                 <div class="profile__info">
                     <div class="profile__user">
                         <h1 class="profile__title">Gidora</h1>
                         <button type="button" class="profile__button profile__button_type_edit">
-                            <img src="src/images/edit_button.svg" class="image image_type_edit" alt="Редактировать профиль" />
+                            <img src="<%=require('./images/edit_button.svg')%>" class="image image_type_edit" alt="Редактировать профиль" />
                         </button>
                     </div>
                     <p class="profile__text">Лайф энжоер</p>
                 </div>
             </div>
             <button type="button" class="profile__button profile__button_type_add">
-                <img src="src/images/add.svg" class="image image_type_add" alt="Добавить пост">
+                <img src="<%=require('./images/add.svg')%>" class="image image_type_add" alt="Добавить пост">
             </button>
         </section>
         <section class="cards">
@@ -116,9 +116,9 @@
             <button type="button" id="CloseImage" class="popup__close"></button>
         </div>
     </div>
-    <script type ='module' src="src/scripts/utils/constants.js"></script>
-    <script type ='module' src="src/scripts/components/Card.js"></script>
-    <script type ='module' src="src/scripts/pages/index.js"></script>
+    <script type ='module' src="scripts/utils/constants.js"></script>
+    <script type ='module' src="scripts/components/Card.js"></script>
+    <script type ='module' src="scripts/pages/index.js"></script>
 
 </body>
 </html>
