@@ -11,7 +11,7 @@
     background: none;
     height: 32px;
     width: 32px;
-    background-image: url('../../../images/close.svg');
+    background-image: url('src/images/close.svg');
     background-size: cover;
     transition: .5s;
 }

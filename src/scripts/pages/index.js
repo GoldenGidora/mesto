@@ -1,6 +1,6 @@
-import Card from "./Card.js";
-import {initialCards, config} from "./constants.js"
-import FormValidator from "./FormValidator.js";
+import Card from "../components/Card.js";
+import {initialCards, config} from "../utils/constants.js"
+import FormValidator from "../components/FormValidator.js";
 
 const userName = document.querySelector('.profile__title'),
     userDescription = document.querySelector('.profile__text'),
