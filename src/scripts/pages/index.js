@@ -2,6 +2,7 @@ import Card from "../components/Card.js";
 import {initialCards, config} from "../utils/constants.js"
 import FormValidator from "../components/FormValidator.js";
 import './index.css';
+import Section from "../components/Section";
 
 const userName = document.querySelector('.profile__title'),
     userDescription = document.querySelector('.profile__text'),
@@ -19,7 +20,6 @@ const buttonPlaceAdd = document.querySelector('.profile__button_type_add'),
 const popupImage = document.querySelector('.popup__image');
 const popupFigcaption = document.querySelector('.popup__figcaption');
 const popupTypeImage = document.querySelector('.popup_type_image');
-const cardsSection = document.querySelector('.cards');
 
 const formValidators = {};
 
@@ -46,9 +46,10 @@ function createCard(item) {
         .generateCard();
 }
 
-initialCards.forEach(element => {
-    cardsSection.prepend(createCard(element))
-})
+const cardSection = new Section(initialCards, (card) => {
+    cardSection.addItem(createCard(card));
+}, '.cards');
+cardSection.renderItems();
 
 function closePopup(popup) {
     popup.classList.remove('popup_opened');
