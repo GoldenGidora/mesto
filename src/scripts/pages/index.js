@@ -3,6 +3,8 @@ import {initialCards, config} from "../utils/constants.js"
 import FormValidator from "../components/FormValidator.js";
 import './index.css';
 import Section from "../components/Section";
+import PopupWithImage from "../components/PopupWithImage";
+import PopupWithForm from "../components/PopupWithForm";
 
 const userName = document.querySelector('.profile__title'),
     userDescription = document.querySelector('.profile__text'),
@@ -42,66 +44,60 @@ function handleCardClick(name, link) {
 }
 
 function createCard(item) {
-    return new Card({data: item, templateSelector: '#template_card', handleCardClick})
+    return new Card(item, '#template_card', (name, link) => {
+        viewImagePopup.open(name, link);
+    })
         .generateCard();
 }
 
 const cardSection = new Section(initialCards, (card) => {
     cardSection.addItem(createCard(card));
 }, '.cards');
-cardSection.renderItems();
+cardSection.renderItems()
 
-function closePopup(popup) {
-    popup.classList.remove('popup_opened');
-    document.removeEventListener('keydown', handlePopupPressEsc);
-    popup.removeEventListener('click', handlePopupOverlayClick);
-}
+// const handlePopupOverlayClick = (event) => {
+//     if (event.target === event.currentTarget) {
+//         closePopup(event.currentTarget);
+//     }
+// }
+//
+// buttonProfileEdit.addEventListener('click', () => {
+//     openPopup(popupEditProfile);
+//     userNameInput.value = userName.textContent;
+//     userDescriptionInput.value = userDescription.textContent;
+//     formValidators["profile edit"].toggleButtonState();
+// })
+//
 
-function openPopup(popup) {
-    popup.classList.add('popup_opened');
-    popup.addEventListener('click', handlePopupOverlayClick);
-    document.addEventListener('keydown', handlePopupPressEsc);
-}
+// document.querySelectorAll('.popup__close').forEach(button => {
+//     const parentPopup = button.closest('.popup');
+//     button.addEventListener('click', () => closePopup(parentPopup));
+// })
 
-const handlePopupOverlayClick = (event) => {
-    if (event.target === event.currentTarget) {
-        closePopup(event.currentTarget);
-    }
-}
+// formEditSubmit.addEventListener('submit', (event) => {
+//     event.preventDefault();
+//     userName.textContent = `${userNameInput.value}`;
+//     userDescription.textContent = `${userDescriptionInput.value}`;
+//     closePopup(popupEditProfile);
+// })
 
-const handlePopupPressEsc = (event) => {
-    const key = event.key;
-    if (key === 'Escape') {
-        closePopup(document.querySelector('.popup_opened'));
-    }
-}
+// placeAddFormSubmit.addEventListener('submit', (event) => {
+//     event.preventDefault();
+//     cardSection.addItem(createCard({name: placeNameInput.value, link: placeLinkInput.value}))
+//     closePopup(popupAddPlace);
+//     placeAddFormSubmit.reset();
+// })
 
-buttonProfileEdit.addEventListener('click', () => {
-    openPopup(popupEditProfile);
-    userNameInput.value = userName.textContent;
-    userDescriptionInput.value = userDescription.textContent;
-    formValidators["profile edit"].toggleButtonState();
-})
+const viewImagePopup = new PopupWithImage('.popup_type_image');
+viewImagePopup.setEventListeners();
+
+const addPostForm = new PopupWithForm('.popup_type_add', (formData) => {{
+    cardSection.addItem(createCard(formData));
+    addPostForm.close();
+}})
+addPostForm.setEventListeners();
 
 buttonPlaceAdd.addEventListener('click', () => {
-    openPopup(popupAddPlace);
+    addPostForm.open();
     formValidators["post add"].toggleButtonState();
 });
-document.querySelectorAll('.popup__close').forEach(button => {
-    const parentPopup = button.closest('.popup');
-    button.addEventListener('click', () => closePopup(parentPopup));
-})
-
-formEditSubmit.addEventListener('submit', (event) => {
-    event.preventDefault();
-    userName.textContent = `${userNameInput.value}`;
-    userDescription.textContent = `${userDescriptionInput.value}`;
-    closePopup(popupEditProfile);
-})
-
-placeAddFormSubmit.addEventListener('submit', (event) => {
-    event.preventDefault();
-    cardSection.addItem(createCard({name: placeNameInput.value, link: placeLinkInput.value}))
-    closePopup(popupAddPlace);
-    placeAddFormSubmit.reset();
-})
