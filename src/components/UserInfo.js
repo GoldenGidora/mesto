@@ -1,7 +1,9 @@
+import {userDescSelector} from "../utils/constants";
+
 export default class UserInfo {
-    constructor({usernameSelector, descriptionSelector}) {
+    constructor({usernameSelector, userDescriptionSelector}) {
         this._username = document.querySelector(usernameSelector);
-        this._desc = document.querySelector(descriptionSelector);
+        this._desc = document.querySelector(userDescriptionSelector);
     }
 
     getUserInfo() {

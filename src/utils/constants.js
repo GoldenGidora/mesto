@@ -31,3 +31,7 @@ export const config = {
     errorMessage: 'popup__input-error_active',
     submitBtn: '.popup__submit'
 }
+export const usernameSelector = '.profile__title';
+export const userDescSelector = '.profile__text';
+export const usernameInputSelector = '.popup__input_type_name';
+export const userDescInputSelector = '.popup__input_type_description';
