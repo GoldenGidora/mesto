@@ -37,7 +37,7 @@
         max-width: 238px;
     }
 
-    .popup__input:nth-child(2) {
+    .popup__input:last-child {
         margin-bottom: 45px;
     }
 }
