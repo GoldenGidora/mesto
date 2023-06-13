@@ -28,7 +28,7 @@
     color: #FF0000;
 }
 
-.popup__input-error_active {
+.popup__input-error_active  {
     opacity: 1;
 }
 
@@ -37,7 +37,7 @@
         max-width: 238px;
     }
 
-    .popup__input:last-of-type {
+    .popup__input:nth-child(2) {
         margin-bottom: 45px;
     }
 }
