@@ -43,10 +43,8 @@ const viewImagePopup = new PopupWithImage('.popup_type_image');
 viewImagePopup.setEventListeners();
 
 const addPostForm = new PopupWithForm('.popup_type_add', (formData) => {
-    {
-        cardSection.addItem(createCard(formData));
-        addPostForm.close();
-    }
+    cardSection.addItem(createCard(formData));
+    addPostForm.close();
 })
 const profileEditForm = new PopupWithForm('.popup_type_edit', (formData) => {
     user.setUserInfo(formData);
