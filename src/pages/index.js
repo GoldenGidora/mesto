@@ -7,6 +7,7 @@ import Section from "../components/Section.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import UserInfo from "../components/UserInfo.js";
+import Api from "../components/Api";
 
 const usernameInput = document.querySelector(usernameInputSelector);
 const userDescInput = document.querySelector(userDescInputSelector);
@@ -15,6 +16,13 @@ const buttonPlaceAdd = document.querySelector('.profile__button_type_add');
 const formValidators = {};
 const user = new UserInfo({usernameSelector, userDescriptionSelector: userDescSelector});
 const viewImagePopup = new PopupWithImage('.popup_type_image');
+
+const api = new Api({
+    baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-70',
+    headers: {
+        authorization: '99bdb945-3b1c-4bb2-a40c-a00024f1a035'
+    }
+})
 
 const enableValidation = (config) => {
     const formList = Array.from(document.querySelectorAll(config.form));
