@@ -1,6 +1,6 @@
 import Card from "../components/Card.js";
 import {
-    initialCards, config,
+    config,
     usernameSelector, userDescSelector, usernameInputSelector, userDescInputSelector, avatarSelector
 } from "../utils/constants.js"
 import FormValidator from "../components/FormValidator.js";
@@ -22,14 +22,16 @@ const viewImagePopup = new PopupWithImage('.popup_type_image');
 const api = new Api({
     baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-70',
     headers: {
-        authorization: '99bdb945-3b1c-4bb2-a40c-a00024f1a035'
+        authorization: '99bdb945-3b1c-4bb2-a40c-a00024f1a035',
+        'Content-Type': 'application/json'
     }
 })
-Promise.all([api.getUserInfo()])
-    .then(([userData]) => {
+Promise.all([api.getUserInfo(), api.getInitialCards()])
+    .then(([userData, cards]) => {
         user.setUserInfo(userData);
-
+        cardSection.renderItems(cards);
     })
+    .catch(e => console.log(`Ошибка: \n${e}`))
 
 const enableValidation = (config) => {
     const formList = Array.from(document.querySelectorAll(config.form));
@@ -48,7 +50,7 @@ function createCard(item) {
     }).generateCard();
 }
 
-const cardSection = new Section(initialCards, (card) => {
+const cardSection = new Section((card) => {
     cardSection.addItem(createCard(card));
 }, '.cards');
 
@@ -58,12 +60,13 @@ const addPostForm = new PopupWithForm('.popup_type_add', (formData) => {
 })
 
 const profileEditForm = new PopupWithForm('.popup_type_edit', (formData) => {
-    user.setUserInfo(formData);
+    api.editUserInfo(formData)
+        .then((data) => user.setUserInfo(data))
     profileEditForm.close();
 })
 
 buttonProfileEdit.addEventListener('click', () => {
-    const {username, description, avatar} = user.getUserInfo();
+    const {username, description} = user.getUserInfo();
     usernameInput.value = username;
     userDescInput.value = description;
     profileEditForm.open();
@@ -75,7 +78,6 @@ buttonPlaceAdd.addEventListener('click', () => {
     formValidators["post add"].toggleButtonState();
 });
 
-cardSection.renderItems();
 viewImagePopup.setEventListeners();
 profileEditForm.setEventListeners();
 addPostForm.setEventListeners();

@@ -4,7 +4,7 @@ export default class Api {
         this._headers = options.headers;
     }
 
-    _parseResponce(res) {
+    _parseResponse(res) {
         if (res.ok) {
             return res.json()
         }
@@ -12,13 +12,28 @@ export default class Api {
     }
 
     getInitialCards() {
-
+        return fetch(`${this._baseUrl}/cards`, {
+            headers: this._headers
+        })
+            .then(res => this._parseResponse(res))
     }
 
     getUserInfo() {
         return fetch(`${this._baseUrl}/users/me`, {
             headers: this._headers
         })
-            .then(res => this._parseResponce(res));
+            .then(res => this._parseResponse(res));
+    }
+
+    editUserInfo(data) {
+        return fetch(`${this._baseUrl}/users/me`, {
+            method: 'PATCH',
+            headers: this._headers,
+            body: JSON.stringify({
+                name: data.username,
+                about: data.userdescription
+            })
+        })
+            .then(res => this._parseResponse(res));
     }
 }
