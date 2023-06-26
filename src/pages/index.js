@@ -26,7 +26,7 @@ const api = new Api({
         'Content-Type': 'application/json'
     }
 })
-Promise.all([api.getUserInfo(), api.getInitialCards()])
+Promise.all([api.getUserInfo(), api.getCards()])
     .then(([userData, cards]) => {
         user.setUserInfo(userData);
         cardSection.renderItems(cards);
@@ -55,7 +55,8 @@ const cardSection = new Section((card) => {
 }, '.cards');
 
 const addPostForm = new PopupWithForm('.popup_type_add', (formData) => {
-    cardSection.addItem(createCard(formData));
+    api.addCard(formData)
+        .then(res => cardSection.addItem(createCard(res)));
     addPostForm.close();
 })
 

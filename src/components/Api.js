@@ -11,11 +11,23 @@ export default class Api {
         return Promise.reject(`Ошибка: ${res.status}`);
     }
 
-    getInitialCards() {
+    getCards() {
         return fetch(`${this._baseUrl}/cards`, {
             headers: this._headers
         })
             .then(res => this._parseResponse(res))
+    }
+
+    addCard(data) {
+        return fetch(`${this._baseUrl}/cards`, {
+            method: 'POST',
+            headers: this._headers,
+            body: JSON.stringify({
+                name: data.name,
+                link: data.link
+            })
+        })
+            .then(res => this._parseResponse(res));
     }
 
     getUserInfo() {
