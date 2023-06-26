@@ -4,15 +4,21 @@ export default class Api {
         this._headers = options.headers;
     }
 
+    _parseResponce(res) {
+        if (res.ok) {
+            return res.json()
+        }
+        return Promise.reject(`Ошибка: ${res.status}`);
+    }
+
     getInitialCards() {
 
     }
 
     getUserInfo() {
-        fetch(`${this._baseUrl}/users/me`, {
+        return fetch(`${this._baseUrl}/users/me`, {
             headers: this._headers
         })
-            .then(res => res.json())
-            .then(json => console.log(json));
+            .then(res => this._parseResponce(res));
     }
 }

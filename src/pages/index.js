@@ -1,6 +1,8 @@
 import Card from "../components/Card.js";
-import {initialCards, config,
-    usernameSelector, userDescSelector, usernameInputSelector, userDescInputSelector} from "../utils/constants.js"
+import {
+    initialCards, config,
+    usernameSelector, userDescSelector, usernameInputSelector, userDescInputSelector, avatarSelector
+} from "../utils/constants.js"
 import FormValidator from "../components/FormValidator.js";
 import './index.css';
 import Section from "../components/Section.js";
@@ -14,7 +16,7 @@ const userDescInput = document.querySelector(userDescInputSelector);
 const buttonProfileEdit = document.querySelector('.profile__button_type_edit');
 const buttonPlaceAdd = document.querySelector('.profile__button_type_add');
 const formValidators = {};
-const user = new UserInfo({usernameSelector, userDescriptionSelector: userDescSelector});
+const user = new UserInfo({usernameSelector, userDescSelector, avatarSelector});
 const viewImagePopup = new PopupWithImage('.popup_type_image');
 
 const api = new Api({
@@ -23,6 +25,11 @@ const api = new Api({
         authorization: '99bdb945-3b1c-4bb2-a40c-a00024f1a035'
     }
 })
+Promise.all([api.getUserInfo()])
+    .then(([userData]) => {
+        user.setUserInfo(userData);
+
+    })
 
 const enableValidation = (config) => {
     const formList = Array.from(document.querySelectorAll(config.form));
@@ -56,7 +63,7 @@ const profileEditForm = new PopupWithForm('.popup_type_edit', (formData) => {
 })
 
 buttonProfileEdit.addEventListener('click', () => {
-    const {username, description} = user.getUserInfo();
+    const {username, description, avatar} = user.getUserInfo();
     usernameInput.value = username;
     userDescInput.value = description;
     profileEditForm.open();
