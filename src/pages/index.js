@@ -45,9 +45,17 @@ const enableValidation = (config) => {
 enableValidation(config);
 
 function createCard(item) {
-    return new Card(item, '#template_card', (name, link) => {
-        viewImagePopup.open(name, link);
-    }).generateCard();
+    return new Card(item,
+        '#template_card',
+        (name, link) => {
+            viewImagePopup.open(name, link);
+        },
+        (id) => {
+            api.setLike(id)
+                .then(data => {
+                    console.log(data);
+                })
+        }).generateCard();
 }
 
 const cardSection = new Section((card) => {
