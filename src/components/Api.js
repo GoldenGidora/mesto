@@ -38,6 +38,14 @@ export default class Api {
             .then(res => this._parseResponse(res));
     }
 
+    removeLike(id) {
+        return fetch(`${this._baseUrl}/cards/${id}/likes`, {
+            method: 'DELETE',
+            headers: this._headers
+        })
+            .then(res => this._parseResponse(res));
+    }
+
     getUserInfo() {
         return fetch(`${this._baseUrl}/users/me`, {
             headers: this._headers
