@@ -1,14 +1,16 @@
 export default class Card {
-    constructor(data, userId, templateSelector, handleCardClick, handleLike, handleRemoveLike) {
+    constructor(data, userId, templateSelector, handleCardClick, handleLike, handleRemoveLike, handleCardDelete) {
         this._templateSelector = templateSelector;
         this._image = data.link;
         this._title = data.name;
         this._likes = data.likes;
-        this._id = data._id;
+        this._cardId = data._id;
         this._userId = userId;
+        this._ownerId = data.owner._id;
         this._handleCardClick = handleCardClick;
         this._setLike = handleLike;
         this._removeLike = handleRemoveLike;
+        this._deleteCard = handleCardDelete;
     }
 
     _getTemplate() {
@@ -22,15 +24,21 @@ export default class Card {
     _setEventListeners() {
         this._likeBtn.addEventListener('click', () => {
             if (this._likeBtn.classList.contains('cards__like_active')) {
-                this._removeLike(this._id);
+                this._removeLike(this._cardId);
             } else {
-                this._setLike(this._id);
+                this._setLike(this._cardId);
             }
         });
-        this._deleteBtn.addEventListener('click', () => this._element.remove())
+        this._deleteBtn.addEventListener('click', () => {
+            this._deleteCard(this._cardId);
+        })
         this._imageCard.addEventListener('click', () => {
             this._handleCardClick(this._title, this._image);
         })
+    }
+
+    deleteCard() {
+        this._element.remove();
     }
 
     checkIsLiked() {
@@ -47,6 +55,12 @@ export default class Card {
         this._likeBtn.classList.toggle('cards__like_active');
     }
 
+    _isCardOwner() {
+        if(!(this._ownerId === this._userId)){
+            this._deleteBtn.remove();
+        }
+    }
+
     generateCard() {
         this._element = this._getTemplate();
         this._deleteBtn = this._element.querySelector('.cards__delete');
@@ -61,6 +75,7 @@ export default class Card {
         this._element.querySelector('.cards__title').textContent = this._title;
         this._setEventListeners();
         this.checkIsLiked();
+        this._isCardOwner();
 
         return this._element;
     }

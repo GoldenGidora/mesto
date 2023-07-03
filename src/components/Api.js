@@ -30,6 +30,15 @@ export default class Api {
             .then(res => this._parseResponse(res));
     }
 
+    removeCard(id) {
+        return fetch(`${this._baseUrl}/cards/${id}`, {
+            method: 'DELETE',
+            headers: this._headers
+        })
+            .then(res => this._parseResponse(res))
+            .catch(e => console.log(e));
+    }
+
     setLike(id) {
         return fetch(`${this._baseUrl}/cards/${id}/likes`, {
             method: 'PUT',

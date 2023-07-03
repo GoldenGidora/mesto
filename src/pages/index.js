@@ -8,6 +8,7 @@ import './index.css';
 import Section from "../components/Section.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import PopupWithForm from "../components/PopupWithForm.js";
+import PopupConfirm from "../components/PopupConfirm.js";
 import UserInfo from "../components/UserInfo.js";
 import Api from "../components/Api";
 
@@ -18,6 +19,7 @@ const buttonPlaceAdd = document.querySelector('.profile__button_type_add');
 const formValidators = {};
 const user = new UserInfo({usernameSelector, userDescSelector, avatarSelector});
 const viewImagePopup = new PopupWithImage('.popup_type_image');
+const deletePopup = new PopupConfirm('.popup_type_confirm');
 
 const api = new Api({
     baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-70',
@@ -55,15 +57,27 @@ function createCard(item) {
                 .then(data => {
                     card.likeHandler(data);
                 })
+                .catch(e => console.log(e))
         },
         (id) => {
             api.removeLike(id)
                 .then(data => {
                     card.likeHandler(data);
                 })
+                .catch(e => console.log(e))
+        },
+        (id) => {
+            deletePopup.open();
+            deletePopup.removeCallback(() => {
+                api.removeCard(id)
+                    .then(() => {
+                        card.deleteCard();
+                    })
+                    .catch(e => console.log(e))
+            })
         }
-        );
-        return card.generateCard();
+    );
+    return card.generateCard();
 }
 
 const cardSection = new Section((card) => {
@@ -72,13 +86,15 @@ const cardSection = new Section((card) => {
 
 const addPostForm = new PopupWithForm('.popup_type_add', (formData) => {
     api.addCard(formData)
-        .then(res => cardSection.addItem(createCard(res)));
+        .then(res => cardSection.addItem(createCard(res)))
+        .catch(e => console.log(e));
     addPostForm.close();
 })
 
 const profileEditForm = new PopupWithForm('.popup_type_edit', (formData) => {
     api.editUserInfo(formData)
         .then((data) => user.setUserInfo(data))
+        .catch(e => console.log(e));
     profileEditForm.close();
 })
 
@@ -98,3 +114,4 @@ buttonPlaceAdd.addEventListener('click', () => {
 viewImagePopup.setEventListeners();
 profileEditForm.setEventListeners();
 addPostForm.setEventListeners();
+deletePopup.setEventListeners();
