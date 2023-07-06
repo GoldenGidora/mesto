@@ -15,7 +15,7 @@ import Api from "../components/Api";
 const usernameInput = document.querySelector(usernameInputSelector);
 const userDescInput = document.querySelector(userDescInputSelector);
 const buttonProfileEdit = document.querySelector('.profile__button_type_edit');
-const buttonAvatarEdit = document.querySelector('.profile__avatar_edit');
+const buttonAvatarEdit = document.querySelector('.profile__avatar-edit');
 const buttonPlaceAdd = document.querySelector('.profile__button_type_add');
 const formValidators = {};
 const user = new UserInfo({usernameSelector, userDescSelector, avatarSelector});
