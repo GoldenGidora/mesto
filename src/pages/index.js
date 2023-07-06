@@ -15,6 +15,7 @@ import Api from "../components/Api";
 const usernameInput = document.querySelector(usernameInputSelector);
 const userDescInput = document.querySelector(userDescInputSelector);
 const buttonProfileEdit = document.querySelector('.profile__button_type_edit');
+const buttonAvatarEdit = document.querySelector('.profile__avatar_edit');
 const buttonPlaceAdd = document.querySelector('.profile__button_type_add');
 const formValidators = {};
 const user = new UserInfo({usernameSelector, userDescSelector, avatarSelector});
@@ -92,11 +93,24 @@ const addPostForm = new PopupWithForm('.popup_type_add', (formData) => {
 })
 
 const profileEditForm = new PopupWithForm('.popup_type_edit', (formData) => {
+    profileEditForm.loading(true);
     api.editUserInfo(formData)
         .then((data) => user.setUserInfo(data))
-        .catch(e => console.log(e));
+        .catch(e => console.log(e))
+        .finally(() => profileEditForm.loading(false));
     profileEditForm.close();
 })
+
+const avatarEditForm = new PopupWithForm('.popup_type_avatar', (formData) => {
+    avatarEditForm.loading(true);
+    api.editAvatar(formData)
+        .then(() => {
+            document.querySelector(avatarSelector).src = formData.avatar;
+            avatarEditForm.close();
+        })
+        .catch(e => console.log(`Ошибка: ${e}`))
+        .finally(() => avatarEditForm.loading(false));
+});
 
 buttonProfileEdit.addEventListener('click', () => {
     const {username, description} = user.getUserInfo();
@@ -106,6 +120,11 @@ buttonProfileEdit.addEventListener('click', () => {
     formValidators["profile edit"].toggleButtonState();
 })
 
+buttonAvatarEdit.addEventListener('click', () => {
+    avatarEditForm.open();
+    formValidators["profile avatar-edit"].toggleButtonState();
+})
+
 buttonPlaceAdd.addEventListener('click', () => {
     addPostForm.open();
     formValidators["post add"].toggleButtonState();
@@ -113,5 +132,6 @@ buttonPlaceAdd.addEventListener('click', () => {
 
 viewImagePopup.setEventListeners();
 profileEditForm.setEventListeners();
+avatarEditForm.setEventListeners();
 addPostForm.setEventListeners();
 deletePopup.setEventListeners();
