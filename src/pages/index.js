@@ -14,6 +14,7 @@ import Api from "../components/Api";
 
 const usernameInput = document.querySelector(usernameInputSelector);
 const userDescInput = document.querySelector(userDescInputSelector);
+const avatar = document.querySelector(avatarSelector);
 const buttonProfileEdit = document.querySelector('.profile__button_type_edit');
 const buttonAvatarEdit = document.querySelector('.profile__avatar-edit');
 const buttonPlaceAdd = document.querySelector('.profile__button_type_add');
@@ -32,7 +33,7 @@ const api = new Api({
 Promise.all([api.getUserInfo(), api.getCards()])
     .then(([userData, cards]) => {
         user.setUserInfo(userData);
-        cardSection.renderItems(cards);
+        cardSection.renderItems(cards.reverse());
     })
     .catch(e => console.log(`Ошибка: \n${e}`))
 
@@ -73,6 +74,7 @@ function createCard(item) {
                 api.removeCard(id)
                     .then(() => {
                         card.deleteCard();
+                        deletePopup.close();
                     })
                     .catch(e => console.log(e))
             })
@@ -87,25 +89,29 @@ const cardSection = new Section((card) => {
 
 const addPostForm = new PopupWithForm('.popup_type_add', (formData) => {
     api.addCard(formData)
-        .then(res => cardSection.addItem(createCard(res)))
+        .then((res) => {
+            cardSection.addItem(createCard(res));
+            addPostForm.close();
+        })
         .catch(e => console.log(e));
-    addPostForm.close();
 })
 
 const profileEditForm = new PopupWithForm('.popup_type_edit', (formData) => {
     profileEditForm.loading(true);
     api.editUserInfo(formData)
-        .then((data) => user.setUserInfo(data))
+        .then((data) => {
+            user.setUserInfo(data);
+            profileEditForm.close();
+        })
         .catch(e => console.log(e))
         .finally(() => profileEditForm.loading(false));
-    profileEditForm.close();
 })
 
 const avatarEditForm = new PopupWithForm('.popup_type_avatar', (formData) => {
     avatarEditForm.loading(true);
     api.editAvatar(formData)
         .then(() => {
-            document.querySelector(avatarSelector).src = formData.avatar;
+            avatar.src = formData.avatar;
             avatarEditForm.close();
         })
         .catch(e => console.log(`Ошибка: ${e}`))
